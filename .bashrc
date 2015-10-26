@@ -31,6 +31,7 @@ BCYN="\033[46m" # background cyan
 BWHT="\033[47m" # background white
 
 
+
 # Every machine
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -132,17 +133,26 @@ _pwd_ps1() {
 }
 
 prompt_command() {
+
+  # Virtual Env
+  if [[ $VIRTUAL_ENV != "" ]]
+    then
+      venv="venv|"
+  else
+    venv=''
+  fi
+
 	if [[ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
 		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short git
-			PS1="[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]|\[${_cgit}\]\$(_git_ps1 8)\[${RS}\]]\$ "
+			PS1="${venv}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]|\[${_cgit}\]\$(_git_ps1 8)\[${RS}\]]\$ "
 		else
-			PS1="(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\][\[${_cgit}\]\$(_git_ps1 16)\[${RS}\]]\$ "
+			PS1="${venv}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\][\[${_cgit}\]\$(_git_ps1 16)\[${RS}\]]\$ "
 		fi
 	else
 		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short
-			PS1="[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]]\$ "
+			PS1="${venv}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]]\$ "
 		else
-			PS1="(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\]\$ "
+			PS1="${venv}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\]\$ "
 		fi
 	fi
 }
