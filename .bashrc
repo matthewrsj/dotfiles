@@ -106,7 +106,7 @@ _cgit=$FYEL
 _git_ps1() {
 	local mygit="$(basename $(git symbolic-ref HEAD 2>/dev/null))";
 	if [ "$(echo "$mygit" | wc -m)" -gt $1 ]; then
-		mygit="…$(echo $mygit | tail -c $1)"
+		mygit="$(echo $mygit | head -c $1)…"
 	fi
 	echo -e $mygit
 }
@@ -164,3 +164,5 @@ alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
 alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
+
+test -f ~/.git-completion.bash && . $_
