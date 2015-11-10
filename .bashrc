@@ -167,3 +167,7 @@ alias ls="ls --color"
 alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
 
 test -f ~/.git-completion.bash && . $_
+
+export EXECS=/home/mrsj/executables
+
+export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
