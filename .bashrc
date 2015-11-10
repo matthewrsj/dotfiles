@@ -137,22 +137,23 @@ prompt_command() {
   # Virtual Env
   if [[ $VIRTUAL_ENV != "" ]]
     then
-      venv="venv|"
+      venv="|v|"
+      _venv=$FRED
   else
     venv=''
   fi
 
 	if [[ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
 		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short git
-			PS1="${venv}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]|\[${_cgit}\]\$(_git_ps1 8)\[${RS}\]]\$ "
+			PS1="${_venv}${venv}${RS}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]|\[${_cgit}\]\$(_git_ps1 8)\[${RS}\]]\$ "
 		else
-			PS1="${venv}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\][\[${_cgit}\]\$(_git_ps1 16)\[${RS}\]]\$ "
+			PS1="${_venv}${venv}${RS}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\][\[${_cgit}\]\$(_git_ps1 16)\[${RS}\]]\$ "
 		fi
 	else
 		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short
-			PS1="${venv}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]]\$ "
+			PS1="${_venv}${venv}${RS}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]]\$ "
 		else
-			PS1="${venv}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\]\$ "
+			PS1="${_venv}${venv}${RS}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\]\$ "
 		fi
 	fi
 }
