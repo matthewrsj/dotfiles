@@ -183,7 +183,7 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 # exec --no-startup-id amixer -q set Master toggle set Speaker toggle Headphones toggle
 
 bindsym $mod+z exec --no-startup-id i3exit suspend
-bindsym $mod+x exec --no-startup-id i3lock
+bindsym $mod+x exec i3lock -i '/home/mrsj/.backgrounds/i3lockimage.png' -t
 
 #Start the gnome settings daemon
 #exec /usr/libexec/gnome-settings-daemon

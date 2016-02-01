@@ -158,16 +158,26 @@ prompt_command() {
 	fi
 }
 
-PROMPT_COMMAND=prompt_command
+# Use Andy Tolvstad's crazy prompt set above
+# PROMPT_COMMAND=prompt_command
+
+# Use pyprompt from https://github.com/rettigs/pyprompt
+PROMPT_COMMAND=set_prompt
+set_prompt () {
+    export PS1="$(~/pyprompt/prompt.py)"
+}
 
 alias pelstart="make clean && make html && make devserver"
 alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
 alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
+alias pish="ssh mrsj@192.168.1.212"
 
 test -f ~/.git-completion.bash && . $_
 
 export EXECS=/home/mrsj/executables
 
 export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
+export PATH=$PATH:.
+
