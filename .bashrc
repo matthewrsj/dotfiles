@@ -8,6 +8,13 @@ case $- in
 	*) return;;
 esac
 
+
+cd() {
+    builtin cd "$@" && ls --color;
+}
+export -f cd
+
+
   # ANSI color codes
 RS="\033[0m"    # reset
 HC="\033[1m"    # hicolor
@@ -55,112 +62,6 @@ auto_ssh_key() {
 	done
 }
 
-# Machine-specific
-_workstations="aqua blue cyan diamond emerald honey neon orange pink silver taupe violet xray yellow"
-if [[ $_workstations =~ $HOSTNAME ]]; then
-	#OSL Host stuff
-	export HISTFILESIZE=10000000000
-	export HISTTIMEFORMAT="%F %T "
-
-	auto_ssh_key
-
-	function fsh () {
-		ssh -t -i ~/.ssh/id_rsa-fir fir "sudo bash -i -c \"ssh $@\""
-	}
-
-	alias ldapvi='ldapvi -D uid=tolvstaa,ou=People,dc=osuosl,dc=org -h ldaps://ldap1.osuosl.org'
-	alias gfr='git fetch && git rebase remotes/origin/master'
-	alias ff='ssh -t fir sudo vim /root/.../firfile'
-	alias vpn='sudo openvpn ~/.openvpn/openvpn.conf'
-	alias mr="mr -j 8 $@"
-	alias tkc="KITCHEN_YAML=~/.kitchen.cloud.yml kitchen $@"
-	. ~/.openstackcfg
-elif [ "$HOSTNAME" = "avalon-arch" ]; then
-	#Avalon stuff
-	if [ -z $(pidof gpg-agent) ]; then
-		auto_ssh_key
-	fi
-elif [ "$HOSTNAME" = "thule" ]; then
-	#if [ "$(cat ~/.gscnlk 2>/dev/null)" != "$(date +%d%m%y%H%M%S)" ]; then
-	#	date +%d%m%y%H%M%S > ~/.gscnlk
-	#	script -q /dev/null
-	#else
-		auto_ssh_key
-	#fi
-elif [ "$HOSTNAME" = "xibalba" ]; then
-	cat /proc/mdstat
-elif [ "$(hostname -d)" == "engr.oregonstate.edu" ]; then
-	auto_ssh_key
-else
-	if which keychain &>/dev/null; then
-		auto_ssh_key
-	fi
-fi
-
-
-# Prompt colors
-_chost=$FGRN
-_cpath=$FCYN
-_cgit=$FYEL
-
-_git_ps1() {
-	local mygit="$(basename $(git symbolic-ref HEAD 2>/dev/null))";
-	if [ "$(echo "$mygit" | wc -m)" -gt $1 ]; then
-		mygit="$(echo $mygit | head -c $1)…"
-	fi
-	echo -e $mygit
-}
-
-_pwd_ps1() {
-	local newPWD=""
-	local fracLim=4
-
-	if [ "$HOME" == "$PWD" ]; then
-		newPWD="~"
-	elif [ "$HOME" == "${PWD:0:${#HOME}}" ]; then
-		newPWD="~${PWD:${#HOME}}"
-	else
-		newPWD=$PWD
-	fi
-
-	local fields=$(echo $newPWD | awk 'BEGIN{FS="/"};{print NF}')
-
-	while [ "${#newPWD}" -gt "$(( COLUMNS / fracLim ))" ] && [ "$fields" -gt "0" ]; do
-		newPWD=$( echo $newPWD | cut -d"/" -f 2- )
-		fields=$((fields - 1))
-	done
-	echo $newPWD
-}
-
-prompt_command() {
-
-  # Virtual Env
-  if [[ $VIRTUAL_ENV != "" ]]
-    then
-      venv="|v|"
-      _venv=$FRED
-  else
-    venv=''
-  fi
-
-	if [[ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
-		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short git
-			PS1="${_venv}${venv}${RS}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]|\[${_cgit}\]\$(_git_ps1 8)\[${RS}\]]\$ "
-		else
-			PS1="${_venv}${venv}${RS}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\][\[${_cgit}\]\$(_git_ps1 16)\[${RS}\]]\$ "
-		fi
-	else
-		if [ -n "$COLUMNS" ] && [ "$COLUMNS" -lt 100 ]; then # short
-			PS1="${_venv}${venv}${RS}[\[${_chost}\]\u@\h\[${RS}\]|\[${_cpath}\]\W\[${RS}\]]\$ "
-		else
-			PS1="${_venv}${venv}${RS}(\A)\[${_chost}\]\u@\h\[${RS}\]:\[${_cpath}\]\$(_pwd_ps1)\[${RS}\]\$ "
-		fi
-	fi
-}
-
-# Use Andy Tolvstad's crazy prompt set above
-# PROMPT_COMMAND=prompt_command
-
 # Use pyprompt from https://github.com/rettigs/pyprompt
 PROMPT_COMMAND=set_prompt
 set_prompt () {
@@ -172,6 +73,9 @@ alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
 alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
+alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
+alias pink="ssh pink.workstation.osuosl.bak"
+alias indigo="ssh indigo.workstation.osuosl.bak"
 alias pish="ssh mrsj@192.168.1.212"
 
 test -f ~/.git-completion.bash && . $_
@@ -180,4 +84,9 @@ export EXECS=/home/mrsj/executables
 
 export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
 export PATH=$PATH:.
+
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+alias be="bundle exec"
 

@@ -4,7 +4,6 @@
 set fo=tcq
 set nocompatible
 set modeline
-set number
 set mouse=a
 set colorcolumn=80
 
@@ -33,7 +32,7 @@ au BufRead,BufNewFile *_spec.rb
 filetype plugin indent on
 
 set ai " Always set auto-indenting on
-set backup " Keep a backup file
+"set backup " Keep a backup file
 set bs=2 " Allow backspacing over everything in insert mode
 set cmdwinheight=4 "Use four lines for the command window
 set encoding=utf-8 "Set default character encoding
@@ -100,3 +99,6 @@ set background=dark
 let g:solarized_termcolors=256
 set t_Co=256
 colorscheme solarized
+
+set relativenumber
+set number
