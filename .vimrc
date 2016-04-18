@@ -18,10 +18,10 @@ set softtabstop=2
 set shiftwidth=2
 
 " Uncomment next four lines to hilight trailing whitespace
-highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
-match LiteralTabs /\s\  /
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$/
+"highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
+"match LiteralTabs /\s\  /
+"highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+"match ExtraWhitespace /\s\+$/
 
 " Set up puppet manifest and spec options
 au BufRead,BufNewFile *.pp
@@ -95,10 +95,12 @@ endif
 
 execute pathogen#infect()
 syntax on
-set background=dark
-let g:solarized_termcolors=256
-set t_Co=256
-colorscheme solarized
-
+"set background=dark
+"let g:solarized_termcolors=256
+"set t_Co=256
+"colorscheme solarized
 set relativenumber
+
 set number
+set list lcs=trail:·,tab:»·
+colorscheme desert
