@@ -104,3 +104,4 @@ set relativenumber
 set number
 set list lcs=trail:·,tab:»·
 colorscheme desert
+hi NonText ctermfg=7 guifg=gray

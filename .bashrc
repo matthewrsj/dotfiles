@@ -76,6 +76,7 @@ alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
 alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
 alias pink="ssh pink.workstation.osuosl.bak"
 alias indigo="ssh indigo.workstation.osuosl.bak"
+alias silver="ssh silver.workstation.osuosl.bak"
 alias pish="ssh mrsj@192.168.1.212"
 
 test -f ~/.git-completion.bash && . $_
