@@ -1,11 +1,12 @@
 " turn off auto adding comments on next line
 " so you can cut and paste reliably
 " http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+execute pathogen#infect()
+colorscheme peachpuff
 set fo=tcq
 set nocompatible
 set modeline
 set mouse=a
-set colorcolumn=80
 
 " For git updating
 set updatetime=250
@@ -16,12 +17,6 @@ set tabstop=2
 set expandtab
 set softtabstop=2
 set shiftwidth=2
-
-" Uncomment next four lines to hilight trailing whitespace
-"highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
-"match LiteralTabs /\s\  /
-"highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-"match ExtraWhitespace /\s\+$/
 
 " Set up puppet manifest and spec options
 au BufRead,BufNewFile *.pp
@@ -43,7 +38,7 @@ set ignorecase "Ignore case in search patterns
 set incsearch "Display match for search pattern halfway through typing
 set lazyredraw "Don't refresh the screen when running macros
 set linebreak "Don't break words in the middle
-set modelines=0 " Don't use modelines by default for security purposes 
+set modelines=0 " Don't use modelines by default for security purposes
 set mousehide "Hides mouse pointer while typing
 set nocompatible " Use Vim defaults (much better!)
 set nolinebreak "No linebreak
@@ -88,20 +83,18 @@ if has("autocmd")
     \ endif
 endif
 
-if &t_Co > 2 || has("gui_running")
-    syntax on
-    set hlsearch
-endif
-
-execute pathogen#infect()
-syntax on
+"execute pathogen#infect()
 "set background=dark
 "let g:solarized_termcolors=256
 "set t_Co=256
 "colorscheme solarized
-set relativenumber
 
+" Setting both relativenumber and number turns on hybrid number
+set relativenumber
 set number
+
 set list lcs=trail:·,tab:»·
-colorscheme desert
 hi NonText ctermfg=7 guifg=gray
+set cursorline
+highlight ColorColumn ctermbg=4
+set colorcolumn=80
