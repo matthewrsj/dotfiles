@@ -9,10 +9,10 @@ case $- in
 esac
 
 
-cd() {
-    builtin cd "$@" && ls --color;
-}
-export -f cd
+#cd() {
+#    builtin cd "$@" && ls --color;
+#}
+#export -f cd
 
 
   # ANSI color codes
@@ -62,32 +62,41 @@ auto_ssh_key() {
 	done
 }
 
-# Use pyprompt from https://github.com/rettigs/pyprompt
-PROMPT_COMMAND=set_prompt
-set_prompt () {
-    export PS1="$(~/pyprompt/prompt.py)"
+export TZ=America/Los_Angeles
+function color_my_prompt {
+    local __date="\[\033[33m\]\D{%F %T %Z}"
+    local __user_and_host="\[\033[32m\]\u@\h"
+    local __cur_location="\[\033[01;34m\]\w"
+    local __git_branch_color="\[\033[30m\]"
+    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/[\\\\\1]\ /`'
+    local __prompt_tail="\[\033[30m\]$"
+    local __last_color="\[\033[00m\]"
+    export PS1="$__date $__user_and_host $__cur_location $__git_branch_color$__git_branch\n $__prompt_tail$__last_color "
 }
+color_my_prompt
 
-alias pelstart="make clean && make html && make devserver"
-alias pelrestart="make stopserver && pelstart"
+#alias pelstart="make clean && make html && make devserver"
+#alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
-alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
-alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
-alias pink="ssh mrsj@pink.workstation.osuosl.bak"
-alias diamond="ssh mrsj@diamond.workstation.osuosl.bak"
-alias indigo="ssh mrsj@indigo.workstation.osuosl.bak"
-alias silver="ssh mrsj@silver.workstation.osuosl.bak"
+#alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
+#alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
+#alias pink="ssh mrsj@pink.workstation.osuosl.bak"
+#alias diamond="ssh mrsj@diamond.workstation.osuosl.bak"
+#alias indigo="ssh mrsj@indigo.workstation.osuosl.bak"
+#alias silver="ssh mrsj@silver.workstation.osuosl.bak"
 
 test -f ~/.git-completion.bash && . $_
 
-export EXECS=/home/mrsj/executables
+#export EXECS=/home/mrsj/executables
 
-export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
+#export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
 export PATH=$PATH:.
+export PATH=$PATH:/usr/local/musl/bin/
 
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-alias be="bundle exec"
+#alias be="bundle exec"
 
+alias ..='cd ..'

@@ -2,7 +2,7 @@
 " so you can cut and paste reliably
 " http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
 execute pathogen#infect()
-colorscheme peachpuff
+"colorscheme desert
 set fo=tcq
 set nocompatible
 set modeline
@@ -13,10 +13,10 @@ set updatetime=250
 
 syntax on
 
-set tabstop=2
-set expandtab
-set softtabstop=2
-set shiftwidth=2
+set tabstop=8
+"set expandtab
+set softtabstop=8
+set shiftwidth=8
 
 " Set up puppet manifest and spec options
 au BufRead,BufNewFile *.pp
@@ -83,18 +83,40 @@ if has("autocmd")
     \ endif
 endif
 
+
 "execute pathogen#infect()
-"set background=dark
-"let g:solarized_termcolors=256
-"set t_Co=256
-"colorscheme solarized
+set background=light
+let g:solarized_termcolors=256
+set t_Co=256
+colorscheme solarized
 
 " Setting both relativenumber and number turns on hybrid number
-set relativenumber
+"set relativenumber
 set number
 
-set list lcs=trail:·,tab:»·
-hi NonText ctermfg=7 guifg=gray
 set cursorline
 highlight ColorColumn ctermbg=4
 set colorcolumn=80
+
+set modeline
+set modelines=5
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+set list lcs=trail:·,tab:»·
+hi NonText ctermfg=7 guifg=gray
+hi SpecialKey ctermbg=none guibg=NONE
+
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal
+endif
