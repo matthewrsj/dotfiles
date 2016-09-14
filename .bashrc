@@ -100,3 +100,60 @@ export PATH=$PATH:/usr/local/musl/bin/
 #alias be="bundle exec"
 
 alias ..='cd ..'
+export clear_root=/home/mrsj/clear
+
+function qe()
+{
+    qemu-system-x86_64 -enable-kvm -m 1024 -cpu host -smp cpus=2 -bios \
+            $clear_root/projects/common/image-creator/OVMF.fd \
+            -net nic,model=virtio -net user -vnc 0.0.0.0:0 \
+            -drive if=virtio,aio=threads,format=raw,file=$1
+}
+
+function qet()
+{
+    qemu-system-x86_64 -enable-kvm -m 1024 -cpu host -smp cpus=2 \
+            -bios $clear_root/projects/common/image-creator/OVMF.fd \
+            -nographic -vga none -net nic,model=virtio -net user \
+            -drive if=virtio,aio=threads,format=raw,file=$1
+}
+
+function mkimg()
+{
+        echo sudo python3 ister.py -t $1 
+        sudo python3 ister.py -t $1 
+}
+function mkimgstaging()
+{
+       echo sudo python3 ister.py -t $1 -f staging -u http://clearlinux-sandbox.jf.intel.com/update/
+       sudo python3 ister.py -t $1 -f staging -u http://clearlinux-sandbox.jf.intel.com/update/ 
+}
+
+function runlive()
+{
+        echo sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=$1,if=virtio,aio=threads -net nic,model=virtio -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+        sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=$1,if=virtio,aio=threads -net nic,model=virtio -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+}
+
+function runinst()
+{
+        echo sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=installer-target.img,if=virtio,aio=threads -drive file=$1,if=virtio,aio=threads -net nic,model=virtio -drive file=installer-target.img,if=virtio,aio=threads -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+        # sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=installer.img,if=virtio,aio=threads -net nic,model=virtio -drive file=installer-target.img,if=virtio,aio=threads -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+        sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=installer-target.img,if=virtio,aio=threads -drive file=$1,if=virtio,aio=threads -net nic,model=virtio -drive file=installer-target.img,if=virtio,aio=threads -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+}
+
+function runvminst()
+{
+        echo sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=installer-target.img,if=virtio,aio=threads -drive file=installer.img,if=virtio,aio=threads -net nic,model=virtio -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+        sudo qemu-system-x86_64 -enable-kvm -m 1024 -vnc 0.0.0.0:0 -cpu host -drive file=installer-target.img,if=virtio,aio=threads -drive file=installer.img,if=virtio,aio=threads -net nic,model=virtio -net user,hostfwd=tcp::2233-:22 -smp 2 -bios $clear_root/projects/common/image-creator/OVMF.fd
+}
+
+function newtarget()
+{
+        echo '>' rm installer-target.img
+        rm installer-target.img
+        echo '>' qemu-img create installer-target.img 10G 
+        qemu-img create installer-target.img 10G 
+}
+
+shopt -s checkwinsize
