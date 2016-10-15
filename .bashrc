@@ -64,7 +64,7 @@ auto_ssh_key() {
 
 export TZ=America/Los_Angeles
 function color_my_prompt {
-    local __date="\[\033[33m\]\D{%F %T %Z}"
+    local __date="\[\033[33m\]\D{%T}"
     local __user_and_host="\[\033[32m\]\u@\h"
     local __cur_location="\[\033[01;34m\]\w"
     local __git_branch_color="\[\033[30m\]"
@@ -75,12 +75,13 @@ function color_my_prompt {
 }
 color_my_prompt
 
+alias elinks='elinks google.com'
 #alias pelstart="make clean && make html && make devserver"
 #alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
-#alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
-#alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
+alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
+alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
 #alias pink="ssh mrsj@pink.workstation.osuosl.bak"
 #alias diamond="ssh mrsj@diamond.workstation.osuosl.bak"
 #alias indigo="ssh mrsj@indigo.workstation.osuosl.bak"
@@ -157,3 +158,5 @@ function newtarget()
 }
 
 shopt -s checkwinsize
+export PATH=$PATH:/home/mrsj/osu/fall2016/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
+export JAVA_HOME=/usr/lib/jvm/java-8-jdk
