@@ -86,6 +86,7 @@ alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
 #alias diamond="ssh mrsj@diamond.workstation.osuosl.bak"
 #alias indigo="ssh mrsj@indigo.workstation.osuosl.bak"
 #alias silver="ssh mrsj@silver.workstation.osuosl.bak"
+alias g="git"
 
 test -f ~/.git-completion.bash && . $_
 
@@ -158,5 +159,7 @@ function newtarget()
 }
 
 shopt -s checkwinsize
+shopt -s autocd
 export PATH=$PATH:/home/mrsj/osu/fall2016/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
 export JAVA_HOME=/usr/lib/jvm/java-8-jdk
+export GOPATH=/home/mrsj/go

@@ -85,17 +85,19 @@ endif
 
 
 "execute pathogen#infect()
-set background=light
+set background=dark
 let g:solarized_termcolors=256
 set t_Co=256
-colorscheme solarized
+let g:gruvbox_contrast_light="hard"
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
 
 " Setting both relativenumber and number turns on hybrid number
 "set relativenumber
 set number
 
 set cursorline
-highlight ColorColumn ctermbg=4
+"highlight ColorColumn ctermbg=4
 set colorcolumn=80
 
 set modeline
@@ -109,14 +111,17 @@ nnoremap <space> za
 set list lcs=trail:·,tab:»·
 hi NonText ctermfg=7 guifg=gray
 hi SpecialKey ctermbg=none guibg=NONE
+set laststatus=2
 
-if &term =~ "xterm\\|rxvt"
-  " use an orange cursor in insert mode
-  let &t_SI = "\<Esc>]12;orange\x7"
-  " use a red cursor otherwise
-  let &t_EI = "\<Esc>]12;red\x7"
-  silent !echo -ne "\033]12;red\007"
-  " reset cursor when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
-  " use \003]12;gray\007 for gnome-terminal
-endif
+"if &term =~ "xterm\\|rxvt"
+"  " use an orange cursor in insert mode
+"  let &t_SI = "\<Esc>]12;orange\x7"
+"  " use a red cursor otherwise
+"  let &t_EI = "\<Esc>]12;red\x7"
+"  silent !echo -ne "\033]12;red\007"
+"  " reset cursor when vim exits
+"  autocmd VimLeave * silent !echo -ne "\033]112\007"
+"  " use \003]12;gray\007 for gnome-terminal
+"endif
+let mapleader=","
+map <C-n> :NERDTreeToggle<CR>
