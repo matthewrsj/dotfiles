@@ -51,14 +51,19 @@ set wildmenu
 set wildignore+=*.o,*~,.lo
 set suffixes+=.in,.a,.1
 
+set cursorline
+set colorcolumn=81
+
 if has("autocmd")
     " When editing a file, always jump to the last cursor position
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \   exe "normal g'\"" |
     \ endif
+    autocmd FileType python set colorcolumn=80
 endif
 
+autocmd BufNewFile,BufRead *.tex set spell
 
 set background=dark
 let g:solarized_termcolors=256
@@ -70,9 +75,6 @@ colorscheme gruvbox
 " Setting both relativenumber and number turns on hybrid number
 "set relativenumber
 set number
-
-set cursorline
-set colorcolumn=80
 
 set modeline
 set modelines=5
