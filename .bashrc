@@ -8,37 +8,6 @@ case $- in
 	*) return;;
 esac
 
-
-#cd() {
-#    builtin cd "$@" && ls --color;
-#}
-#export -f cd
-
-
-  # ANSI color codes
-RS="\033[0m"    # reset
-HC="\033[1m"    # hicolor
-UL="\033[4m"    # underline
-INV="\033[7m"   # inverse background and foreground
-FBLK="\033[30m" # foreground black
-FRED="\033[31m" # foreground red
-FGRN="\033[32m" # foreground green
-FYEL="\033[33m" # foreground yellow
-FBLE="\033[34m" # foreground blue
-FMAG="\033[35m" # foreground magenta
-FCYN="\033[36m" # foreground cyan
-FWHT="\033[37m" # foreground white
-BBLK="\033[40m" # background black
-BRED="\033[41m" # background red
-BGRN="\033[42m" # background green
-BYEL="\033[43m" # background yellow
-BBLE="\033[44m" # background blue
-BMAG="\033[45m" # background magenta
-BCYN="\033[46m" # background cyan
-BWHT="\033[47m" # background white
-
-
-
 # Every machine
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -48,6 +17,7 @@ if [ -f ~/.keychain/$HOSTNAME-sh ]; then # Fix gpg issue regardless of host
 	. ~/.keychain/$HOSTNAME-sh
 fi
 
+# vim, like a man
 if which vim &>/dev/null; then
 	export EDITOR=vim
 	export VISUAL=vim
@@ -62,6 +32,7 @@ auto_ssh_key() {
 	done
 }
 
+# Color-and-giterize PS1
 export TZ=America/Los_Angeles
 function color_my_prompt {
     local __date="\[\033[33m\]\D{%T}"
@@ -75,35 +46,28 @@ function color_my_prompt {
 }
 color_my_prompt
 
+# Bash aliases
 alias elinks='elinks google.com'
-#alias pelstart="make clean && make html && make devserver"
-#alias pelrestart="make stopserver && pelstart"
 alias ll="ls -lashp --color"
 alias ls="ls --color"
 alias shell="ssh johnsma8@shell.onid.oregonstate.edu"
 alias flip="ssh johnsma8@flip.engr.oregonstate.edu"
-#alias pink="ssh mrsj@pink.workstation.osuosl.bak"
-#alias diamond="ssh mrsj@diamond.workstation.osuosl.bak"
-#alias indigo="ssh mrsj@indigo.workstation.osuosl.bak"
-#alias silver="ssh mrsj@silver.workstation.osuosl.bak"
 alias g="git"
 
-test -f ~/.git-completion.bash && . $_
-
-#export EXECS=/home/mrsj/executables
-
-#export PATH=$PATH:$EXECS/ascr:$EXECS/cool-retro-term:/$EXECS/telegram/Telegram
+# exports
 export PATH=$PATH:.
 export PATH=$PATH:/usr/local/musl/bin/
-
-
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-#alias be="bundle exec"
-
-alias ..='cd ..'
+export PATH=$PATH:/home/mrsj/osu/fall2016/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
+export JAVA_HOME=/usr/lib/jvm/java-8-jdk
+export GOPATH=/home/mrsj/go
 export clear_root=/home/mrsj/clear
 
+# Miscellaneous
+test -f ~/.git-completion.bash && . $_
+shopt -s checkwinsize
+shopt -s autocd
+
+# Functions
 function qe()
 {
     qemu-system-x86_64 -enable-kvm -m 1024 -cpu host -smp cpus=2 -bios \
@@ -128,7 +92,7 @@ function mkimg()
 function mkimgstaging()
 {
        echo sudo python3 ister.py -t $1 -f staging -u http://clearlinux-sandbox.jf.intel.com/update/
-       sudo python3 ister.py -t $1 -f staging -u http://clearlinux-sandbox.jf.intel.com/update/ 
+       sudo python3 ister.py -t $1 -f staging -u http://clearlinux-sandbox.jf.intel.com/update/
 }
 
 function runlive()
@@ -154,12 +118,7 @@ function newtarget()
 {
         echo '>' rm installer-target.img
         rm installer-target.img
-        echo '>' qemu-img create installer-target.img 10G 
-        qemu-img create installer-target.img 10G 
+        echo '>' qemu-img create installer-target.img 10G
+        qemu-img create installer-target.img 10G
 }
 
-shopt -s checkwinsize
-shopt -s autocd
-export PATH=$PATH:/home/mrsj/osu/fall2016/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
-export JAVA_HOME=/usr/lib/jvm/java-8-jdk
-export GOPATH=/home/mrsj/go
