@@ -63,8 +63,12 @@ if has("autocmd")
     autocmd FileType python set colorcolumn=80
 endif
 
-autocmd BufNewFile,BufRead *.tex set spell
+autocmd FileType tex setlocal spell
+autocmd FileType tex setlocal tw=80
+autocmd FileType markdown setlocal spell
+autocmd FileType markdown setlocal tw=80
 
+" color schemes
 set background=dark
 let g:solarized_termcolors=256
 set t_Co=256
@@ -84,10 +88,17 @@ set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 
+inoremap jj <esc>
+
 set list lcs=trail:·,tab:»·
 hi NonText ctermfg=7 guifg=gray
 hi SpecialKey ctermbg=none guibg=NONE
-set laststatus=2 " for vim-ariline
+
+" vim-airline
+set laststatus=2
+
+" NERDTree
+let g:NERDTreeWinSize = 25
 map <C-n> :NERDTreeToggle<CR>
 
 " the following lines change the color of the cursor in insert mode, but the

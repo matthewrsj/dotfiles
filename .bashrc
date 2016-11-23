@@ -57,7 +57,7 @@ alias g="git"
 # exports
 export PATH=$PATH:.
 export PATH=$PATH:/usr/local/musl/bin/
-export PATH=$PATH:/home/mrsj/osu/fall2016/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
+export PATH=$PATH:/home/mrsj/osu/16f/softwareEngineeringII-cs362/assignments-matthewrsj/bin/apache-maven-3.3.9/bin
 export JAVA_HOME=/usr/lib/jvm/java-8-jdk
 export GOPATH=/home/mrsj/go
 export clear_root=/home/mrsj/clear
