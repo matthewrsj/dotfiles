@@ -51,23 +51,24 @@ set wildmenu
 set wildignore+=*.o,*~,.lo
 set suffixes+=.in,.a,.1
 
+set cursorline
+set colorcolumn=81
+
 if has("autocmd")
     " When editing a file, always jump to the last cursor position
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \   exe "normal g'\"" |
     \ endif
+    autocmd FileType python set colorcolumn=80
 endif
 
-set cursorline
-set colorcolumn=81
-
-autocmd FileType python set colorcolumn=80
 autocmd FileType tex setlocal spell
 autocmd FileType tex setlocal tw=80
 autocmd FileType markdown setlocal spell
 autocmd FileType markdown setlocal tw=80
-autocmd FileType gitcommit setlocal spell
+autocmd FileType text setlocal spell
+autocmd FileType text setlocal tw=80
 
 " color schemes
 set background=dark
@@ -89,12 +90,7 @@ set foldmethod=indent
 set foldlevel=99
 nnoremap <space> za
 
-let CursorColumnI = 0 "the cursor column position in INSERT mode
-autocmd InsertEnter * let CursorColumnI = col('.')
-autocmd CursorMovedI * let CursorColumnI = col('.')
-autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.') + 1) | endif
 inoremap jj <esc>
-"inoremap <silent> <esc> <C-O>:stopinsert<CR>
 
 set list lcs=trail:·,tab:»·
 hi NonText ctermfg=7 guifg=gray
@@ -119,3 +115,10 @@ map <C-n> :NERDTreeToggle<CR>
 "  autocmd VimLeave * silent !echo -ne "\033]112\007"
 "  " use \003]12;gray\007 for gnome-terminal
 "endif
+"
+
+" CLANG PLUGIN
+"
+let g:clang_library_path='/usr/lib64/libclang.so'
+
+set wrap
