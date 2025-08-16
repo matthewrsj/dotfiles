@@ -1,6 +1,11 @@
-[user]
-	email = matthew.johnson@intel.com
-	name = Matthew Johnson
+# User configuration should go in ~/.gitconfig.local
+# Example:
+# [user]
+#     email = your.email@example.com
+#     name = Your Name
+
+[include]
+	path = ~/.gitconfig.local
 
 [alias]
 	lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
@@ -13,3 +18,9 @@
 	d = diff
 	b = branch
 	sh = show
+
+[core]
+	editor = nvim
+
+[init]
+	defaultBranch = master
