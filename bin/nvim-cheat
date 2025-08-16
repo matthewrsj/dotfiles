@@ -1,0 +1,62 @@
+#!/bin/bash
+
+cat << 'EOF'
+╔══════════════════════════════════════════════════════════════════╗
+║                     NEOVIM CHEAT SHEET                          ║
+╚══════════════════════════════════════════════════════════════════╝
+
+NAVIGATION & JUMPING
+────────────────────
+  gd         Go to definition
+  gD         Go to declaration  
+  gi         Go to implementation
+  gr         Find all references
+  K          Show hover documentation
+  [d         Previous diagnostic/error
+  ]d         Next diagnostic/error
+
+FILE & SEARCH
+─────────────
+  Space + ff  Find files (fuzzy)
+  Space + fg  Live grep (search in files)
+  Space + fb  Find buffers
+  Space + fh  Help tags
+  Space + e   Toggle file explorer
+
+EDITING
+───────
+  jj         Escape from insert mode (custom)
+  gcc        Comment/uncomment line
+  gc         Comment/uncomment selection (visual mode)
+  Space + rn  Rename symbol
+  Space + ca  Code action (fixes/refactors)
+
+COMPLETION (Insert Mode)
+────────────────────────
+  Ctrl+Space  Trigger completion
+  Tab         Next suggestion
+  Shift+Tab   Previous suggestion
+  Enter       Accept suggestion
+  Ctrl+e      Cancel completion
+
+WINDOW MANAGEMENT
+─────────────────
+  Ctrl+w s    Split horizontally
+  Ctrl+w v    Split vertically
+  Ctrl+w h/j/k/l  Navigate between splits
+  Ctrl+w q    Close current split
+
+MOUSE
+─────
+  ✓ Enabled - click, scroll, select all work
+
+INSTALLED LANGUAGE SERVERS
+──────────────────────────
+  • Go (gopls)
+  • Python (pyright)
+  • TypeScript/JavaScript (tsserver)
+  • Rust (rust_analyzer)
+  • Lua (lua_ls)
+
+Pro tip: Leader key is Space
+EOF

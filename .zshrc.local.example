@@ -1,0 +1,18 @@
+# Example .zshrc.local file
+# Copy this to ~/.zshrc.local and add your machine-specific settings and secrets
+
+# API Keys and secrets (keep these in .zshrc.local, never commit them!)
+# export OPENAI_API_KEY="your-api-key-here"
+# export LANGSMITH_API_KEY="your-api-key-here"
+# export GITHUB_TOKEN="your-token-here"
+
+# Machine-specific paths
+# export CUSTOM_PATH="/usr/local/custom/bin"
+# export PATH="$CUSTOM_PATH:$PATH"
+
+# Work-specific configurations
+# export WORK_ENV="development"
+# alias work-vpn='connect-to-work-vpn'
+
+# Personal preferences that might vary between machines
+# export TERMINAL_THEME="dark"
